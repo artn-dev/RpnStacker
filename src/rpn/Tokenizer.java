@@ -10,9 +10,12 @@ public class Tokenizer {
     	if (Regex.isNum(str))
     		return new Token(TokenType.NUM, str);
     	
-    	if (!Regex.isOp(str))
-            throw new UnexpectedIdentifierException(str);
+    	if (Regex.isOp(str))
+            return new Token(Regex.getOpType(str), str);
 
-    	return new Token(Regex.getOpType(str), str);
+        if (Regex.isIdentifier(str))
+            return new Token(TokenType.VAR, str);
+
+        throw new UnexpectedIdentifierException(str);
     }
 }
