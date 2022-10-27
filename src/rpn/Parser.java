@@ -7,13 +7,40 @@ import tokens.Token;
 
 public class Parser {
     static Stack<Integer> s = new Stack<Integer>();
-    static HashMap<String, Integer> hm;
+    static HashMap<String, Integer> hm = new HashMap<String, Integer>();
+    
+    static String tmp = ""; // Para guardar is ids até que um valor seja atribuído
 
-    static public void setVariables(HashMap<String, Integer> hm) {
-        Parser.hm = hm;
+    static public boolean parseVariables(Token token) {
+    	switch (token.getType()) {
+    	case NUM:
+    		s.push(Integer.parseInt(token.lexeme));
+    		break;
+    		
+    	case VAR: {
+	    		if (hm.get(token.lexeme) == null)
+    				Parser.tmp = token.lexeme;
+    			else	// Caso já esteja usando uma variável depois de ler
+	    			s.push(0);
+    		}
+    		break;
+    		
+    	case ASSIGN: {
+    			hm.put(tmp, s.pop());
+    			tmp = "";
+    		}
+    		break;
+    		
+    	default:	// Detecta que terminou de ler variáveis
+    		s.pop();
+    		s.pop();
+    		return false;
+    	}
+    	
+    	return true;
     }
 
-    static public Integer parse(Token token) throws UnexpectedVariableException {
+    static public Integer parseOperations(Token token) throws UnexpectedVariableException {
         switch (token.getType()) {
         case PLUS:
             return s.push(s.pop() + s.pop());
@@ -32,6 +59,10 @@ public class Parser {
                 throw new UnexpectedVariableException(token.lexeme);
 			return 0;
         	}
+        // Valores de assign não servem para cálculo
+        case ASSIGN:
+        	s.pop();
+        	s.pop();
 		default:
 			return 0;
         }

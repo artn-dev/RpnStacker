@@ -21,9 +21,15 @@ public class RpnInterpreter {
             	System.out.println(t);
             }
             
+            for (Token t : tokens) {
+            	boolean readingVars = Parser.parseVariables(t);
+            	if (!readingVars)
+            		break;
+            }
+            
             Integer result = 0;
             for (Token t : tokens)
-            	result = Parser.parse(t);
+            	result = Parser.parseOperations(t);
             
             System.out.println(result);
 
