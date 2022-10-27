@@ -15,6 +15,9 @@ public class Tokenizer {
 
         if (Regex.isIdentifier(str))
             return new Token(TokenType.VAR, str);
+        
+        if (Regex.isWhiteSpace(str))
+        	return null;
 
         throw new UnexpectedIdentifierException(str);
     }

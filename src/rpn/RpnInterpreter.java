@@ -17,8 +17,10 @@ public class RpnInterpreter {
             for (String line : Files.readAllLines(path)) {
             	Token t = Tokenizer.getToken(line);
             	
-            	tokens.add(t);
-            	System.out.println(t);
+            	if (t != null) {
+	            	tokens.add(t);
+	            	System.out.println(t);
+            	}
             }
             
             for (Token t : tokens) {
