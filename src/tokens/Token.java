@@ -1,8 +1,8 @@
 package tokens;
 
 public class Token {
-    public TokenType type;
-    public String lexeme;
+    private TokenType type;
+    private String lexeme;
     
     public Token(TokenType type, String lexeme) {
     	this.type = type;
@@ -18,6 +18,6 @@ public class Token {
     }
     
     public String toString() {
-        return "Token [type="+type+",lexeme="+lexeme+"]";
+        return "Token [type:"+type+",lexeme:"+lexeme+"]";
     }
 }
