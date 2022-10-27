@@ -5,7 +5,7 @@ import tokens.TokenType;
 public class Regex {
     static private final String PATTERN_OPERATION = "\\+|\\*|-|/|=";
     static private final String PATTERN_NUMBER    = "\\d+";
-    static private final String PATTERN_VARIABLE = "\\w[a-zA-Z0-9_]+|_+\\w[a-zA-Z0-9_]+";
+    static private final String PATTERN_VARIABLE = "_*\\w[a-zA-Z0-9_]*";
 
     static public boolean isOp(String lexeme) {
     	return lexeme.matches(PATTERN_OPERATION);
