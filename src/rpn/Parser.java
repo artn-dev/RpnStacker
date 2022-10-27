@@ -14,12 +14,12 @@ public class Parser {
     static public boolean parseVariables(Token token) {
     	switch (token.getType()) {
     	case NUM:
-    		s.push(Integer.parseInt(token.lexeme));
+    		s.push(Integer.parseInt(token.getLexeme()));
     		break;
     		
     	case VAR: {
-	    		if (hm.get(token.lexeme) == null)
-    				Parser.tmp = token.lexeme;
+	    		if (hm.get(token.getLexeme()) == null)
+    				Parser.tmp = token.getLexeme();
     			else	// Caso já esteja usando uma variável depois de ler
 	    			s.push(0);
     		}
@@ -51,12 +51,12 @@ public class Parser {
         case DIV:
             return s.push(s.pop() / s.pop());
         case NUM:
-            s.push(Integer.parseInt(token.lexeme));
+            s.push(Integer.parseInt(token.getLexeme()));
             return 0;
         case VAR: {
-            Integer value = s.push(hm.get(token.lexeme));
+            Integer value = s.push(hm.get(token.getLexeme()));
             if (value == null)
-                throw new UnexpectedVariableException(token.lexeme);
+                throw new UnexpectedVariableException(token.getLexeme());
 			return 0;
         	}
         // Valores de assign não servem para cálculo
