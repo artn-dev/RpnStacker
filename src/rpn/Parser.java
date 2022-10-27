@@ -10,10 +10,10 @@ public class Parser {
     static HashMap<String, Integer> hm;
 
     static public void setVariables(HashMap<String, Integer> hm) {
-        this.hm = hm;
+        Parser.hm = hm;
     }
 
-    static public Integer parse(Token token) {
+    static public Integer parse(Token token) throws UnexpectedVariableException {
         switch (token.getType()) {
         case PLUS:
             return s.push(s.pop() + s.pop());
@@ -25,11 +25,13 @@ public class Parser {
             return s.push(s.pop() / s.pop());
         case NUM:
             s.push(Integer.parseInt(token.lexeme));
-        case IDENTIFIER: {
+            return 0;
+        case VAR: {
             Integer value = s.push(hm.get(token.lexeme));
             if (value == null)
                 throw new UnexpectedVariableException(token.lexeme);
-        }
+			return 0;
+        	}
 		default:
 			return 0;
         }

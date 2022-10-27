@@ -6,7 +6,7 @@ import tokens.UnexpectedIdentifierException;
 
 
 public class Tokenizer {
-    public Token getToken(String str) throws UnexpectedIdentifierException {
+    static public Token getToken(String str) throws UnexpectedIdentifierException {
     	if (Regex.isNum(str))
     		return new Token(TokenType.NUM, str);
     	
