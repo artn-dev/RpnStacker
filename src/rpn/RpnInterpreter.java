@@ -14,6 +14,7 @@ public class RpnInterpreter {
         try {
             ArrayList<Token> tokens = new ArrayList<Token>();
             
+            // Leitura de tokens
             for (String line : Files.readAllLines(path)) {
             	Token t = Tokenizer.getToken(line);
             	
@@ -23,12 +24,14 @@ public class RpnInterpreter {
             	}
             }
             
+            // Atribuição de variáveis (encerra no primeiro cálculo)
             for (Token t : tokens) {
             	boolean readingVars = Parser.parseVariables(t);
             	if (!readingVars)
             		break;
             }
             
+            // Cálculos (atribuições são ignoradas)
             Integer result = 0;
             for (Token t : tokens)
             	result = Parser.parseOperations(t);
